@@ -4,11 +4,16 @@ public class Isosceles {
 	public static void main(String[] args) {
 		int max = 0;
 		
-		int coluna[] = {5, 6, 5, 8, 9, 10, 5, 6, 9, 5, 7, 9, 9, 9, 6};
+		int coluna[] = {5, 6, 5, 8, 9, 10, 5, 8, 9, 5, 7, 9, 9, 9, 6};
 		
 		ajustaValorColuna(coluna);
 		
-		max = maxColuna(coluna, 4, 7);
+		for(int i = 0; i < coluna.length; i++){
+			if(max < coluna[i]){
+				max = maxColuna(coluna, max, i);
+			}
+		}
+		
 		
 		System.out.println(max);
 	}
@@ -18,11 +23,11 @@ public class Isosceles {
 		int meioColuna = coluna.length/2;
 		
 		for(int i = 0; i < coluna.length; i++){
-			if(i <= meioColuna){
+			if(i < meioColuna){
 				if(coluna[i] > i + 1){
 					coluna[i] = i + 1;
 				}
-			}else{
+			}else{				
 				if(coluna[i] > coluna.length - i){
 					coluna[i] = coluna.length - i;
 				}
@@ -34,31 +39,30 @@ public class Isosceles {
 		if(max > coluna[pos]){
 			return max;
 		}else{
-			int valor = coluna[pos];
-			
-			for(int i = 1; i <= valor; i++){
-				if(pos - i < 0){
-					return max;
-				}else{
-					if(coluna[pos - i] < valor - i){
-						return max;
+			for(int ret = coluna[pos]; ret > max; ret--){
+				for(int i = 1; i <= ret; i++){
+					if(pos - i < 0){
+						break;
+					}else{
+						if(coluna[pos - i] < ret - i){
+							break;
+						}
 					}
-				}
-				
-				if(pos + i > coluna.length){
-					return max;
-				}else{
-					if(coluna[pos + i] < valor - i){
-						return max;
+					
+					if(pos + i > coluna.length){
+						break;
+					}else{
+						if(coluna[pos + i] < ret - i){
+							break;
+						}
 					}
-				}
-				
-				if(i == valor){
-					return valor;
+					
+					if(i == ret){
+						return ret;
+					}
 				}
 			}
-			
-			return max;
+			return max;	
 		}
 		
 		
