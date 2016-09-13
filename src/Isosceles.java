@@ -23,11 +23,11 @@ public class Isosceles {
 		int meioColuna = coluna.length/2;
 		
 		for(int i = 0; i < coluna.length; i++){
-			if(i < meioColuna){
+			if((i < meioColuna) || (coluna.length%2 !=0 && i == meioColuna)){
 				if(coluna[i] > i + 1){
 					coluna[i] = i + 1;
 				}
-			}else{				
+			}else{
 				if(coluna[i] > coluna.length - i){
 					coluna[i] = coluna.length - i;
 				}
